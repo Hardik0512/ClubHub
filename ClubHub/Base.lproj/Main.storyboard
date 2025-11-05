@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24128" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24128" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Kmd-xf-Avk">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
@@ -17,15 +17,31 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
+                    <connections>
+                        <segue destination="POC-jE-k5J" kind="relationship" relationship="viewControllers" id="4pU-bp-boN"/>
+                        <segue destination="c56-pC-Vr8" kind="relationship" relationship="viewControllers" id="4Vo-3Q-STb"/>
+                        <segue destination="zKr-EI-dgd" kind="relationship" relationship="viewControllers" id="0pB-OE-ehz"/>
+                        <segue destination="wdR-5o-vrW" kind="relationship" relationship="viewControllers" id="2pz-Oc-Sz4"/>
+                    </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iVZ-TE-PbO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-438" y="-178"/>
+            <point key="canvasLocation" x="-1660" y="-178"/>
+        </scene>
+        <!--StudentDashboard-->
+        <scene sceneID="oTJ-mk-WOn">
+            <objects>
+                <viewControllerPlaceholder storyboardName="StudentDashboard" id="POC-jE-k5J" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="oHM-ov-Bq6"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nfi-v5-Uge" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-837" y="-401"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="OWM-sd-hMp">
             <objects>
-                <viewController id="ati-ww-Jrf" customClass="ViewController" customModule="ClubHub1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ati-ww-Jrf" customClass="ViewController" customModule="ClubHub" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WV9-CB-IQZ">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -197,6 +213,96 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RBl-Vo-tII" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-118" y="-1607"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="AtR-TY-aHE">
+            <objects>
+                <tabBarController id="ZqU-jm-fhF" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qBf-Hs-z5X">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="NQd-oF-vkh" kind="relationship" relationship="viewControllers" id="LLV-St-Tgh"/>
+                        <segue destination="dEG-PB-Ngz" kind="relationship" relationship="viewControllers" id="R6w-5w-igY"/>
+                        <segue destination="W77-qd-a7u" kind="relationship" relationship="viewControllers" id="lKM-rk-msv"/>
+                        <segue destination="uI8-B0-tnR" kind="relationship" relationship="viewControllers" id="RMg-Eu-xmG"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HVc-Ix-n5g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1721" y="-178"/>
+        </scene>
+        <!--ClubHeadDashboard-->
+        <scene sceneID="Wp6-xX-M8Y">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ClubHeadDashboard" id="NQd-oF-vkh" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="nnB-iX-mvf"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jsd-Xd-Wbj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2610" y="-401"/>
+        </scene>
+        <!--StudentProfile-->
+        <scene sceneID="Ctx-t1-x0a">
+            <objects>
+                <viewControllerPlaceholder storyboardName="StudentProfile" id="wdR-5o-vrW" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="nUP-hs-AH4"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vOd-LC-bDD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-837" y="-49"/>
+        </scene>
+        <!--StudentClubs-->
+        <scene sceneID="hRt-KU-qXH">
+            <objects>
+                <viewControllerPlaceholder storyboardName="StudentClubs" id="zKr-EI-dgd" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="ukp-VE-jOw"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gCo-ix-P8V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-837" y="-178"/>
+        </scene>
+        <!--StudentEvents-->
+        <scene sceneID="pcq-8Y-A1S">
+            <objects>
+                <viewControllerPlaceholder storyboardName="StudentEvents" id="c56-pC-Vr8" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="BY2-34-QPr"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G1H-SO-INa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-837" y="-304"/>
+        </scene>
+        <!--ClubHeadProfile-->
+        <scene sceneID="t8E-77-XtZ">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ClubHeadProfile" id="uI8-B0-tnR" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="PVW-bD-Sf4"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lCe-Vq-Bt7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2610" y="-49"/>
+        </scene>
+        <!--ClubHeadDL-->
+        <scene sceneID="BOa-eq-aAF">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ClubHeadDL" id="W77-qd-a7u" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="60p-as-9Ir"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5uq-vv-grp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2610" y="-178"/>
+        </scene>
+        <!--ClubHeadEvents-->
+        <scene sceneID="g54-YU-h8F">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ClubHeadEvents" id="dEG-PB-Ngz" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="1rL-Kj-vH2"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C9g-Li-rjv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2610" y="-304"/>
         </scene>
     </scenes>
     <resources>
