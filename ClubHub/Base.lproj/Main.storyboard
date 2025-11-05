@@ -234,10 +234,10 @@
             </objects>
             <point key="canvasLocation" x="1721" y="-178"/>
         </scene>
-        <!--Storyboard Reference-->
+        <!--ClubHeadDashboard-->
         <scene sceneID="Wp6-xX-M8Y">
             <objects>
-                <viewControllerPlaceholder id="NQd-oF-vkh" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="ClubHeadDashboard" id="NQd-oF-vkh" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="nnB-iX-mvf"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jsd-Xd-Wbj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -274,30 +274,30 @@
             </objects>
             <point key="canvasLocation" x="-837" y="-304"/>
         </scene>
-        <!--Storyboard Reference-->
+        <!--ClubHeadProfile-->
         <scene sceneID="t8E-77-XtZ">
             <objects>
-                <viewControllerPlaceholder id="uI8-B0-tnR" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="ClubHeadProfile" id="uI8-B0-tnR" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="PVW-bD-Sf4"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lCe-Vq-Bt7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2610" y="-49"/>
         </scene>
-        <!--Storyboard Reference-->
+        <!--ClubHeadDL-->
         <scene sceneID="BOa-eq-aAF">
             <objects>
-                <viewControllerPlaceholder id="W77-qd-a7u" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="ClubHeadDL" id="W77-qd-a7u" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="60p-as-9Ir"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5uq-vv-grp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2610" y="-178"/>
         </scene>
-        <!--Storyboard Reference-->
+        <!--ClubHeadEvents-->
         <scene sceneID="g54-YU-h8F">
             <objects>
-                <viewControllerPlaceholder id="dEG-PB-Ngz" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="ClubHeadEvents" id="dEG-PB-Ngz" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="1rL-Kj-vH2"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C9g-Li-rjv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
