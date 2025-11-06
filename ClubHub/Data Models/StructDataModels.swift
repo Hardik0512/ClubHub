@@ -168,155 +168,155 @@ struct Announcement: Codable, Identifiable {
 //}
 
 
-final class StudentDataModel {
-    static let shared = StudentDataModel()
-    private init() {}
-    
-    private(set) var students: [Student] = []
-    
-  
-    // Add a new student
-    func addStudent(_ student: Student) {
-        students.append(student)
-    }
-    
-    // Fetch all students
-    func getAllStudents() -> [Student] {
-        return students
-    }
-    
-    // Fetch student by ID
-    func getStudent(by id: String) -> Student? {
-        return students.first { $0.id == id }
-    }
-    
-    // Fetch student by email
-    func getStudent(byEmail email: String) -> Student? {
-        return students.first { $0.user.email == email }
-    }
-    
-    // Update student details
-    func updateStudent(_ updatedStudent: Student) {
-        if let index = students.firstIndex(where: { $0.id == updatedStudent.id }) {
-            students[index] = updatedStudent
-        }
-    }
-    
-    // Remove student
-    func removeStudent(by id: String) {
-        students.removeAll { $0.id == id }
-    }
-}
+//final class StudentDataModel {
+//    static let shared = StudentDataModel()
+//    private init() {}
+//    
+//    private(set) var students: [Student] = []
+//    
+//  
+//    // Add a new student
+//    func addStudent(_ student: Student) {
+//        students.append(student)
+//    }
+//    
+//    // Fetch all students
+//    func getAllStudents() -> [Student] {
+//        return students
+//    }
+//    
+//    // Fetch student by ID
+//    func getStudent(by id: String) -> Student? {
+//        return students.first { $0.id == id }
+//    }
+//    
+//    // Fetch student by email
+//    func getStudent(byEmail email: String) -> Student? {
+//        return students.first { $0.user.email == email }
+//    }
+//    
+//    // Update student details
+//    func updateStudent(_ updatedStudent: Student) {
+//        if let index = students.firstIndex(where: { $0.id == updatedStudent.id }) {
+//            students[index] = updatedStudent
+//        }
+//    }
+//    
+//    // Remove student
+//    func removeStudent(by id: String) {
+//        students.removeAll { $0.id == id }
+//    }
+//}
 
-final class ClubDataModel {
-    static let shared = ClubDataModel()
-    private init() {}
-    
-    private(set) var clubs: [Club] = []
+//final class ClubDataModel {
+//    static let shared = ClubDataModel()
+//    private init() {}
+//    
+//    private(set) var clubs: [Club] = []
+//
+//    
+//    func getAllClubs() -> [Club] {
+//        return clubs
+//    }
+//    
+//    func getClub(by id: String) -> Club? {
+//        return clubs.first { $0.id == id }
+//    }
+//
+//}
 
-    
-    func getAllClubs() -> [Club] {
-        return clubs
-    }
-    
-    func getClub(by id: String) -> Club? {
-        return clubs.first { $0.id == id }
-    }
-
-}
-
-final class ClubHeadDataModel {
-    static let shared = ClubHeadDataModel()
-    private init() {}
-    
-    private(set) var clubHeads: [ClubHead] = []
-    
-    func addClubHead(_ clubHead: ClubHead) {
-        clubHeads.append(clubHead)
-    }
-    
-    func getAllClubHeads() -> [ClubHead] {
-        return clubHeads
-    }
-    
-    func getClubHead(by id: String) -> ClubHead? {
-        return clubHeads.first { $0.id == id }
-    }
-    
-    func updateClubHead(_ updatedClubHead: ClubHead) {
-        if let index = clubHeads.firstIndex(where: { $0.id == updatedClubHead.id }) {
-            clubHeads[index] = updatedClubHead
-        }
-    }
-    
-    func removeClubHead(by id: String) {
-        clubHeads.removeAll { $0.id == id }
-    }
-}
-
-
-final class EventDataModel {
-    static let shared = EventDataModel()
-    private init() {}
-    
-    private(set) var events: [Event] = []
-    
-    func addEvent(_ event: Event) {
-        events.append(event)
-    }
-    
-    func getAllEvents() -> [Event] {
-        return events
-    }
-    
-    func getEvent(by id: String) -> Event? {
-        return events.first { $0.id == id }
-    }
-    
-    /// 🔍 Get single event by exact name (case-insensitive)
-    func getEvent(byName name: String) -> Event? {
-        return events.first { $0.name.lowercased() == name.lowercased() }
-    }
-    
-    func searchEvents(containing query: String) -> [Event] {
-        guard !query.isEmpty else { return events } // return all if query empty
-        return events.filter { $0.name.lowercased().contains(query.lowercased()) }
-    }
-    
-    func updateEvent(_ updatedEvent: Event) {
-        if let index = events.firstIndex(where: { $0.id == updatedEvent.id }) {
-            events[index] = updatedEvent
-        }
-    }
-    
-    func removeEvent(by id: String) {
-        events.removeAll { $0.id == id }
-    }
-}
+//final class ClubHeadDataModel {
+//    static let shared = ClubHeadDataModel()
+//    private init() {}
+//    
+//    private(set) var clubHeads: [ClubHead] = []
+//    
+//    func addClubHead(_ clubHead: ClubHead) {
+//        clubHeads.append(clubHead)
+//    }
+//    
+//    func getAllClubHeads() -> [ClubHead] {
+//        return clubHeads
+//    }
+//    
+//    func getClubHead(by id: String) -> ClubHead? {
+//        return clubHeads.first { $0.id == id }
+//    }
+//    
+//    func updateClubHead(_ updatedClubHead: ClubHead) {
+//        if let index = clubHeads.firstIndex(where: { $0.id == updatedClubHead.id }) {
+//            clubHeads[index] = updatedClubHead
+//        }
+//    }
+//    
+//    func removeClubHead(by id: String) {
+//        clubHeads.removeAll { $0.id == id }
+//    }
+//}
 
 
-final class BadgeDataModel {
-    static let shared = BadgeDataModel()
-    private init() {}
-    
-    private(set) var badges: [Badge] = []
-    
-    func addBadge(_ badge: Badge) {
-        badges.append(badge)
-    }
-    
-    func getAllBadges() -> [Badge] {
-        return badges
-    }
-    
-    func getBadge(by id: String) -> Badge? {
-        return badges.first { $0.id == id }
-    }
-    
-    func removeBadge(by id: String) {
-        badges.removeAll { $0.id == id }
-    }
-}
+//final class EventDataModel {
+//    static let shared = EventDataModel()
+//    private init() {}
+//    
+//    private(set) var events: [Event] = []
+//    
+//    func addEvent(_ event: Event) {
+//        events.append(event)
+//    }
+//    
+//    func getAllEvents() -> [Event] {
+//        return events
+//    }
+//    
+//    func getEvent(by id: String) -> Event? {
+//        return events.first { $0.id == id }
+//    }
+//    
+//    /// 🔍 Get single event by exact name (case-insensitive)
+//    func getEvent(byName name: String) -> Event? {
+//        return events.first { $0.name.lowercased() == name.lowercased() }
+//    }
+//    
+//    func searchEvents(containing query: String) -> [Event] {
+//        guard !query.isEmpty else { return events } // return all if query empty
+//        return events.filter { $0.name.lowercased().contains(query.lowercased()) }
+//    }
+//    
+//    func updateEvent(_ updatedEvent: Event) {
+//        if let index = events.firstIndex(where: { $0.id == updatedEvent.id }) {
+//            events[index] = updatedEvent
+//        }
+//    }
+//    
+//    func removeEvent(by id: String) {
+//        events.removeAll { $0.id == id }
+//    }
+//}
+
+
+//final class BadgeDataModel {
+//    static let shared = BadgeDataModel()
+//    private init() {}
+//    
+//    private(set) var badges: [Badge] = []
+//    
+//    func addBadge(_ badge: Badge) {
+//        badges.append(badge)
+//    }
+//    
+//    func getAllBadges() -> [Badge] {
+//        return badges
+//    }
+//    
+//    func getBadge(by id: String) -> Badge? {
+//        return badges.first { $0.id == id }
+//    }
+//    
+//    func removeBadge(by id: String) {
+//        badges.removeAll { $0.id == id }
+//    }
+//}
 
 enum DutyLeaveStatus: String, Codable {
     case pending
