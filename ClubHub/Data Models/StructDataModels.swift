@@ -334,6 +334,18 @@ struct DutyLeave: Codable {
 //}
 
 
+<<<<<<< HEAD
+=======
+struct DutyLeave: Codable {
+    let id: String
+    var eventID: String            // Reference to Event.id
+    var studentID: String          // Reference to Student.id
+    var qrCodeValue: String        // same as Student.qrCodeValue
+    var status: DutyLeaveStatus
+    var createdAt: Date
+}
+
+>>>>>>> hardik
 //final class DutyLeaveDataModel {
 //    static let shared = DutyLeaveDataModel()
 //    private init() {}
@@ -408,4 +420,8 @@ struct DutyLeave: Codable {
 //        addDutyLeave(newDutyLeave)
 //    }
 //}
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> hardik
