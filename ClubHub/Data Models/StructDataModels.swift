@@ -62,6 +62,7 @@ struct Student: Codable {
     var badges: [Badge]?
     var followingClubs: [Club]?
     var qrCodeValue: String
+    var activityLogs:[ActivityLog]?
 }
 
 struct Club: Codable {
@@ -116,6 +117,7 @@ struct Event: Codable {
     var registrationFee: Float?
     var qrFeeImage : String
     var departmentsAllowed : [Department]?
+    var isFeatured : Bool
 }
 
 enum AnnouncementType: String, Codable {
@@ -134,19 +136,17 @@ struct Announcement: Codable, Identifiable {
     var createdAt: Date              // timestamp
 }
 
-enum DutyLeaveStatus: String, Codable {
-    case pending
-    case approved
-    case rejected
+enum ActivityType: String, Codable {
+    case registered
+    case checkedIn
 }
 
-struct DutyLeave: Codable {
+struct ActivityLog: Codable {
     let id: String
-    var eventID: String            // Reference to Event.id
-    var studentID: String          // Reference to Student.id
-    var qrCodeValue: String        // same as Student.qrCodeValue
-    var status: DutyLeaveStatus
-    var createdAt: Date
+    let studentId: String
+    var title:String
+    let type: ActivityType
+    let timestamp: Date
 }
 
 //final class UserDataModel {
@@ -333,9 +333,12 @@ struct DutyLeave: Codable {
 //    }
 //}
 
+enum DutyLeaveStatus: String, Codable {
+    case pending
+    case approved
+    case rejected
+}
 
-<<<<<<< HEAD
-=======
 struct DutyLeave: Codable {
     let id: String
     var eventID: String            // Reference to Event.id
@@ -345,7 +348,6 @@ struct DutyLeave: Codable {
     var createdAt: Date
 }
 
->>>>>>> hardik
 //final class DutyLeaveDataModel {
 //    static let shared = DutyLeaveDataModel()
 //    private init() {}
@@ -420,8 +422,4 @@ struct DutyLeave: Codable {
 //        addDutyLeave(newDutyLeave)
 //    }
 //}
-<<<<<<< HEAD
-
-=======
 //
->>>>>>> hardik
