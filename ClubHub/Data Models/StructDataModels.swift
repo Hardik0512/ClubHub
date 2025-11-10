@@ -62,6 +62,7 @@ struct Student: Codable {
     var badges: [Badge]?
     var followingClubs: [Club]?
     var qrCodeValue: String
+    var activityLogs:[ActivityLog]?
 }
 
 struct Club: Codable {
@@ -116,6 +117,7 @@ struct Event: Codable {
     var registrationFee: Float?
     var qrFeeImage : String
     var departmentsAllowed : [Department]?
+    var isFeatured : Bool
 }
 
 enum AnnouncementType: String, Codable {
@@ -132,6 +134,19 @@ struct Announcement: Codable, Identifiable {
     var title: String
     var message: String
     var createdAt: Date              // timestamp
+}
+
+enum ActivityType: String, Codable {
+    case registered
+    case checkedIn
+}
+
+struct ActivityLog: Codable {
+    let id: String
+    let studentId: String
+    var title:String
+    let type: ActivityType
+    let timestamp: Date
 }
 
 //final class UserDataModel {
