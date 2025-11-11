@@ -7,109 +7,166 @@
 
 import Foundation
 
-final class StudentDataModel {
+class StudentDataModel {
     static let shared = StudentDataModel()
-    private init(){}
+    private init() { loadFromPlist() }
     
     private(set) var students: [Student] = []
     private(set) var currentStudent: Student?
-  
-    // Add a new student
+    
+    // MARK: - CRUD
+    
     func setCurrentStudent(_ student: Student) {
         self.currentStudent = student
     }
+    
     func addStudent(_ student: Student) {
         students.append(student)
+        saveToPlist()
     }
     
-    // Fetch all students
     func getAllStudents() -> [Student] {
         return students
     }
     
-    // Fetch student by ID
     func getStudent(by id: String) -> Student? {
         return students.first { $0.id == id }
     }
-    
-    // Fetch student by email
+    func getStudents(byIDs ids: [String]) -> [Student] {
+    return students.filter { ids.contains($0.id) }
+}
+   
     func getStudent(byEmail email: String) -> Student? {
-        return students.first { $0.user.email == email }
+        // fetch User by email first since Student now stores userID only
+        guard let user = UserDataModel.shared.getUser(byEmail: email) else { return nil }
+        return students.first { $0.userID == user.id }
     }
     
-    // Update student details
     func updateStudent(_ updatedStudent: Student) {
         if let index = students.firstIndex(where: { $0.id == updatedStudent.id }) {
             students[index] = updatedStudent
+            saveToPlist()
         }
     }
     
-    // Remove student
     func removeStudent(by id: String) {
         students.removeAll { $0.id == id }
+        saveToPlist()
     }
+    
+    // MARK: - Follow / Unfollow Clubs
     
     func followClub(studentID: String, clubID: String) {
-            guard let studentIndex = students.firstIndex(where: { $0.id == studentID }),
-                  let club = ClubDataModel.shared.getClub(by: clubID) else { return }
-            
-            // Add club to student's following list if not already added
-            if students[studentIndex].followingClubs == nil {
-                students[studentIndex].followingClubs = []
-            }
-            if !(students[studentIndex].followingClubs?.contains(where: { $0.id == clubID }) ?? false) {
-                students[studentIndex].followingClubs?.append(club)
-            }
-
-            // Also update on ClubDataModel side (add student to members list)
+        guard let studentIndex = students.firstIndex(where: { $0.id == studentID }) else { return }
+        if students[studentIndex].followingClubIDs == nil {
+            students[studentIndex].followingClubIDs = []
+        }
+        
+        // Prevent duplicates
+        if !(students[studentIndex].followingClubIDs?.contains(clubID) ?? false) {
+            students[studentIndex].followingClubIDs?.append(clubID)
             ClubDataModel.shared.addMember(studentID: studentID, to: clubID)
+            saveToPlist()
         }
-
-        func unfollowClub(studentID: String, clubID: String) {
-            guard let studentIndex = students.firstIndex(where: { $0.id == studentID }) else { return }
-
-            students[studentIndex].followingClubs?.removeAll(where: { $0.id == clubID })
-            ClubDataModel.shared.removeMember(studentID: studentID, from: clubID)
-        }
+    }
+    
+    func unfollowClub(studentID: String, clubID: String) {
+        guard let studentIndex = students.firstIndex(where: { $0.id == studentID }) else { return }
+        students[studentIndex].followingClubIDs?.removeAll(where: { $0 == clubID })
+        ClubDataModel.shared.removeMember(studentID: studentID, from: clubID)
+        saveToPlist()
+    }
+    
     func getFollowedClubs(for studentID: String) -> [Club] {
         guard let student = students.first(where: { $0.id == studentID }) else { return [] }
-        return student.followingClubs ?? []
+        let followedIDs = student.followingClubIDs ?? []
+        return ClubDataModel.shared.getClubs(byIDs: followedIDs)
     }
-
-        // For "Upcoming Events"
-        func getUpcomingEvents() -> [Event] {
-            guard let events = currentStudent?.registeredEvents else { return [] }
-            return events.filter { $0.date >= Date() }
-        }
-
-        // For "Recent Activity"
-        func getRecentActivities() -> [ActivityLog] {
-            return currentStudent?.activityLogs ?? []
-        }
-
-        // For "Followed Clubs" (used in profile)
-        func getFollowedClubs() -> [Club] {
-            return currentStudent?.followingClubs ?? []
-        }
     
-    // Log a recent activity for the current student
+    // MARK: - Event Management
+    
+    func registerForEvent(_ eventID: String, studentID: String) {
+        guard let studentIndex = students.firstIndex(where: { $0.id == studentID }) else { return }
+        
+        if students[studentIndex].registeredEventIDs == nil {
+            students[studentIndex].registeredEventIDs = []
+        }
+        
+        if !(students[studentIndex].registeredEventIDs?.contains(eventID) ?? false) {
+            students[studentIndex].registeredEventIDs?.append(eventID)
+            EventDataModel.shared.register(studentID: studentID, for: eventID)
+            logActivity(type: .registered, title: "Registered for Event: \(eventID)")
+            saveToPlist()
+        }
+    }
+    
+    func getUpcomingEvents(for studentID: String) -> [Event] {
+        guard let student = students.first(where: { $0.id == studentID }) else { return [] }
+        let registeredIDs = student.registeredEventIDs ?? []
+        let allEvents = EventDataModel.shared.getEvents(byIDs: registeredIDs)
+        return allEvents.filter { $0.date >= Date() }
+    }
+    
+    // MARK: - Activities
+    
     func logActivity(type: ActivityType, title: String) {
         guard let student = currentStudent else { return }
-
-        // Build a new log entry
+        
         let newLog = ActivityLog(
             id: UUID().uuidString,
             studentId: student.id,
-            title:title,
+            title: title,
             type: type,
             timestamp: Date()
         )
-
+        
+        ActivityLogDataModel.shared.addActivity(newLog)
     }
-    func registerForEvent(_ event: Event) {
-        guard let student = currentStudent else { return }
-        EventDataModel.shared.register(student: student, for: event)
-        logActivity(type: .registered, title: "Joined Event: \(event.name)")
+    
+    func getRecentActivities(for studentID: String) -> [ActivityLog] {
+        return ActivityLogDataModel.shared.getActivities(for: studentID)
     }
+    
+    func addBadgeToStudent(studentID: String, badgeID: String) {
+            guard let index = students.firstIndex(where: { $0.id == studentID }) else { return }
 
+            // Initialize array if it's nil
+            if students[index].badgeIDs == nil {
+                students[index].badgeIDs = []
+            }
+
+            // Add only if not already present
+            if !(students[index].badgeIDs?.contains(badgeID) ?? false) {
+                students[index].badgeIDs?.append(badgeID)
+                saveToPlist()
+                print("🏅 Badge \(badgeID) added to student \(studentID)")
+            }
+        }
+    
+    // MARK: - Plist Persistence
+    
+    private var plistURL: URL {
+        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        return path.appendingPathComponent("Students.plist")
+    }
+    
+    func saveToPlist() {
+        let encoder = PropertyListEncoder()
+        do {
+            let data = try encoder.encode(students)
+            try data.write(to: plistURL)
+        } catch {
+            print("❌ Error saving students: \(error)")
+        }
+    }
+    
+    func loadFromPlist() {
+        let decoder = PropertyListDecoder()
+        do {
+            let data = try Data(contentsOf: plistURL)
+            students = try decoder.decode([Student].self, from: data)
+        } catch {
+            print("⚠️ No saved students found or failed to load: \(error)")
+        }
+    }
 }
