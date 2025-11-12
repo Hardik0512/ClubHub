@@ -100,6 +100,7 @@ class StudentDataModel {
         }
     }
     
+    
     func getUpcomingEvents(for studentID: String) -> [Event] {
         guard let student = students.first(where: { $0.id == studentID }) else { return [] }
         let registeredIDs = student.registeredEventIDs ?? []

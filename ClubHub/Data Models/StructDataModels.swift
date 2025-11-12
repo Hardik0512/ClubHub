@@ -86,7 +86,7 @@ struct Club: Codable {
 struct ClubHead: Codable {
     let id: String
     var userID: String
-    var clubID: String?
+    var clubID: String
     var category: String
     var position: String
     var department: Department

@@ -19,9 +19,9 @@ class EventDataModel {
         saveToPlist()
     }
 
-    func getAllEvents() -> [Event] {
-        return events
-    }
+//    func getAllEvents() -> [Event] {
+//        return events
+//    }
 
     func getEvent(by id: String) -> Event? {
         return events.first { $0.id == id }
@@ -44,30 +44,50 @@ class EventDataModel {
         return events.sorted { $0.date < $1.date }
     }
 
-    func getTodayEvents() -> [Event] {
-        let today = Calendar.current.startOfDay(for: Date())
-        return events.filter { Calendar.current.isDate($0.date, inSameDayAs: today) }
-    }
+//    func getTodayEvents() -> [Event] {
+//        let today = Calendar.current.startOfDay(for: Date())
+//        return events.filter { Calendar.current.isDate($0.date, inSameDayAs: today) }
+//    }
 
     func getFeaturedEvents() -> [Event] {
         return events.filter { $0.isFeatured }
     }
-
-    func updateEvent(_ updatedEvent: Event) {
-        if let index = events.firstIndex(where: { $0.id == updatedEvent.id }) {
-            events[index] = updatedEvent
-            saveToPlist()
-        }
+    
+    func getRegisteredEvents(studentID: String) -> [Event] {
+        return events.filter {
+            event in event.registeredStudentIDs.contains(studentID)
+        }.sorted{$0.date > $1.date}
     }
-    func getEvents(byIDs ids: [String]) -> [Event] {
-    return events.filter { ids.contains($0.id) }
-}
-
-
-    func removeEvent(by id: String) {
-        events.removeAll { $0.id == id }
-        saveToPlist()
+    func getPastEvents(studentID:String) ->[Event]{
+        return events.filter{ event in
+            (event.registeredStudentIDs.contains(studentID)) && event.date<Date()
+        }.sorted{$0.date>$1.date}
     }
+    func getUpcomingEvents(studentID:String,limit:Int = 4) ->[Event]{
+        let filteredEvents = events.filter{ event in
+            (event.registeredStudentIDs.contains(studentID)) && event.date>=Date()
+        }.sorted{$0.date>$1.date}
+        return Array(filteredEvents.prefix(limit))
+    }
+    
+
+//    func updateEvent(_ updatedEvent: Event) {
+//        if let index = events.firstIndex(where: { $0.id == updatedEvent.id }) {
+//            events[index] = updatedEvent
+//            saveToPlist()
+//        }
+//    }
+
+    
+//    func getEvents(byIDs ids: [String]) -> [Event] {
+//    return events.filter { ids.contains($0.id) }
+//}
+
+
+//    func removeEvent(by id: String) {
+//        events.removeAll { $0.id == id }
+//        saveToPlist()
+//    }
 
     // MARK: - Registration Handling
     func register(studentID: String, for eventID: String) {
