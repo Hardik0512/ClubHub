@@ -47,18 +47,18 @@ class DutyLeaveDataModel {
             .filter { $0.eventID == eventID }
             .sorted { $0.createdAt > $1.createdAt }
     }
-    
-    func getPendingDutyLeaves() -> [DutyLeave] {
-        return dutyLeaves.filter { $0.status == .pending }
-    }
-    
-    func getApprovedDutyLeaves() -> [DutyLeave] {
-        return dutyLeaves.filter { $0.status == .approved }
-    }
-    
-    func getRejectedDutyLeaves() -> [DutyLeave] {
-        return dutyLeaves.filter { $0.status == .rejected }
-    }
+
+//    func getPendingDutyLeaves() -> [DutyLeave] {
+//        return dutyLeaves.filter { $0.status == .pending }
+//    }
+//    
+//    func getApprovedDutyLeaves() -> [DutyLeave] {
+//        return dutyLeaves.filter { $0.status == .approved }
+//    }
+//    
+//    func getRejectedDutyLeaves() -> [DutyLeave] {
+//        return dutyLeaves.filter { $0.status == .rejected }
+//    }
     
     // MARK: - Status Update
     
@@ -101,6 +101,47 @@ class DutyLeaveDataModel {
         // Log this activity
         StudentDataModel.shared.logActivity(type: .submittedDL, title: "Submitted Duty Leave for Event ID: \(eventID)")
     }
+    
+    func getDutyLeaves(forClubID clubID: String) -> [DutyLeave] {
+        // 1) Get all event IDs belonging to this club
+        let clubEventIDs = Set(EventDataModel.shared.events
+            .filter { $0.clubID == clubID }
+            .map { $0.id })
+        
+        // 2) Filter duty leaves whose eventID is in that set
+        let result = dutyLeaves.filter { clubEventIDs.contains($0.eventID) }
+        
+        // 3) Sort newest first
+        return result.sorted { $0.createdAt > $1.createdAt }
+    }
+    
+    func getApprovedDutyLeaves(forClubID clubID: String) -> [DutyLeave] {
+        let clubEventIDs = Set(EventDataModel.shared.events
+            .filter { $0.clubID == clubID }
+            .map { $0.id })
+        return dutyLeaves
+            .filter { clubEventIDs.contains($0.eventID) && $0.status == .approved }
+            .sorted { $0.createdAt > $1.createdAt }
+    }
+    
+    func getRejectedDutyLeaves(forClubID clubID: String) -> [DutyLeave] {
+        let clubEventIDs = Set(EventDataModel.shared.events
+            .filter { $0.clubID == clubID }
+            .map { $0.id })
+        return dutyLeaves
+            .filter { clubEventIDs.contains($0.eventID) && $0.status == .rejected }
+            .sorted { $0.createdAt > $1.createdAt }
+    }
+
+    func getPendingDutyLeaves(forClubID clubID: String) -> [DutyLeave] {
+        let clubEventIDs = Set(EventDataModel.shared.events
+            .filter { $0.clubID == clubID }
+            .map { $0.id })
+        return dutyLeaves
+            .filter { clubEventIDs.contains($0.eventID) && $0.status != .approved }
+            .sorted { $0.createdAt > $1.createdAt }
+    }
+
     
     // MARK: - Persistence (Plist)
     
