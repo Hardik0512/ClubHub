@@ -62,27 +62,50 @@ class DutyLeaveDataModel {
     
     // MARK: - Status Update
     
+    
     func approveDutyLeave(by id: String) {
         if let index = dutyLeaves.firstIndex(where: { $0.id == id }) {
+            
             dutyLeaves[index].status = .approved
             saveToPlist()
             
-            // Log student activity
             let studentID = dutyLeaves[index].studentID
-            StudentDataModel.shared.logActivity(type: .approvedDL, title: "Duty Leave Approved")
+            let eventID = dutyLeaves[index].eventID
+            
+            // Fetch event name
+            let eventName = EventDataModel.shared.getEvent(by: eventID)?.name ?? "Event"
+            
+            // Log activity for that specific student
+            StudentDataModel.shared.logActivity(
+                studentID: studentID,
+                type: .approvedDL,
+                title: "Duty Leave Approved for \(eventName)"
+            )
         }
     }
+
     
     func rejectDutyLeave(by id: String) {
         if let index = dutyLeaves.firstIndex(where: { $0.id == id }) {
+            
             dutyLeaves[index].status = .rejected
             saveToPlist()
             
-            // Log student activity
             let studentID = dutyLeaves[index].studentID
-            StudentDataModel.shared.logActivity(type: .rejectedDL, title: "Duty Leave Rejected")
+            let eventID = dutyLeaves[index].eventID
+            
+            // Fetch event name
+            let eventName = EventDataModel.shared.getEvent(by: eventID)?.name ?? "Event"
+            
+            // Log activity for that specific student
+            StudentDataModel.shared.logActivity(
+                studentID: studentID,
+                type: .rejectedDL,
+                title: "Duty Leave Rejected for \(eventName)"
+            )
         }
     }
+
     
     // Student Section
     func getDutyLeaves(for studentID: String, with status: DutyLeaveStatus? = nil) -> [DutyLeave] {

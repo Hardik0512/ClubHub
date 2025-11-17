@@ -166,7 +166,6 @@ enum ActivityType: String, Codable {
     case checkedIn
     case approvedDL
     case rejectedDL
-    case submittedDL
 }
 
 struct ActivityLog: Codable {

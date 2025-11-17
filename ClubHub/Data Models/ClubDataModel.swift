@@ -24,14 +24,15 @@ class ClubDataModel {
         return clubs
     }
     
-//    func getClub(by id: String) -> Club? {
-//        return clubs.first { $0.id == id }
-//    }
+    func getClub(by id: String) -> Club? {
+        return clubs.first { $0.id == id }
+    }
     
     func searchClubs(containing query: String) -> [Club] {
         guard !query.isEmpty else { return clubs }
         return clubs.filter { $0.name.lowercased().contains(query.lowercased()) }
     }
+    
     
     func updateClub(_ updatedClub: Club) {
         if let index = clubs.firstIndex(where: { $0.id == updatedClub.id }) {
@@ -67,11 +68,11 @@ class ClubDataModel {
         saveToPlist()
     }
     
-    func getMembers(for clubID: String) -> [Student] {
-        guard let club = getClub(by: clubID),
-              let memberIDs = club.memberIDs else { return [] }
-        return StudentDataModel.shared.getStudents(byIDs: memberIDs)
-    }
+//    func getMembers(for clubID: String) -> [Student] {
+//        guard let club = getClub(by: clubID),
+//              let memberIDs = club.memberIDs else { return [] }
+//        return StudentDataModel.shared.getStudents(byIDs: memberIDs)
+//    }
     
     // MARK: - Club Head Management
     
@@ -88,11 +89,11 @@ class ClubDataModel {
         }
     }
     
-    func getClubHeads(for clubID: String) -> [ClubHead] {
-        guard let club = getClub(by: clubID),
-              let ids = club.clubHeadIDs else { return [] }
-        return ClubHeadDataModel.shared.getClubHeads(byIDs: ids)
-    }
+//    func getClubHeads(for clubID: String) -> [ClubHead] {
+//        guard let club = getClub(by: clubID),
+//              let ids = club.clubHeadIDs else { return [] }
+//        return ClubHeadDataModel.shared.getClubHeads(byIDs: ids)
+//    }
     
     // MARK: - Event Management
     
@@ -117,10 +118,6 @@ class ClubDataModel {
     
     // MARK: - Club Search
     
-    func searchClubs(containing query: String) -> [Club] {
-        guard !query.isEmpty else { return clubs }
-        return clubs.filter { $0.name.lowercased().contains(query.lowercased()) }
-    }
     
     func getClubs(byIDs ids: [String]) -> [Club] {
         return clubs.filter { ids.contains($0.id) }

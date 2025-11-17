@@ -95,7 +95,7 @@ class StudentDataModel {
         if !(students[studentIndex].registeredEventIDs?.contains(eventID) ?? false) {
             students[studentIndex].registeredEventIDs?.append(eventID)
             EventDataModel.shared.register(studentID: studentID, for: eventID)
-            logActivity(type: .registered, title: "Registered for Event: \(eventID)")
+            logActivity(studentID: studentID,type: .registered, title: "Registered for Event: \(eventID)")
             saveToPlist()
         }
     }
@@ -110,8 +110,11 @@ class StudentDataModel {
     
     // MARK: - Activities
     
-    func logActivity(type: ActivityType, title: String) {
-        guard let student = currentStudent else { return }
+    func logActivity(studentID: String, type: ActivityType, title: String) {
+        guard let student = students.first(where: { $0.id == studentID }) else {
+                print("❌ Student not found for activity logging")
+                return
+            }
         
         let newLog = ActivityLog(
             id: UUID().uuidString,

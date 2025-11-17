@@ -79,9 +79,9 @@ class EventDataModel {
 //    }
 
     
-//    func getEvents(byIDs ids: [String]) -> [Event] {
-//    return events.filter { ids.contains($0.id) }
-//}
+    func getEvents(byIDs ids: [String]) -> [Event] {
+    return events.filter { ids.contains($0.id) }
+}
 
 
 //    func removeEvent(by id: String) {
@@ -95,6 +95,28 @@ class EventDataModel {
         if !events[index].registeredStudentIDs.contains(studentID) {
             events[index].registeredStudentIDs.append(studentID)
             saveToPlist()
+        }
+    }
+    
+    func checkInStudent(studentID: String, for eventID: String) {
+        guard let index = events.firstIndex(where: { $0.id == eventID }) else { return }
+
+        // Prevent duplicate check-ins
+        if !events[index].checkedInStudentIDs.contains(studentID) {
+            
+            // Add student to checked-in list
+            events[index].checkedInStudentIDs.append(studentID)
+            saveToPlist()
+
+            // Fetch event name safely
+            let eventName = events[index].name
+            
+            // Log activity for the student
+            StudentDataModel.shared.logActivity(
+                studentID: studentID,
+                type: .checkedIn,
+                title: "Checked in to \(eventName)"
+            )
         }
     }
 

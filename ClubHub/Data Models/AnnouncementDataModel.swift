@@ -30,12 +30,12 @@ class AnnouncementDataModel {
         return announcements.first { $0.id == id }
     }
     
-    func updateAnnouncement(_ updated: Announcement) {
-        if let index = announcements.firstIndex(where: { $0.id == updated.id }) {
-            announcements[index] = updated
-            saveToPlist()
-        }
-    }
+//    func updateAnnouncement(_ updated: Announcement) {
+//        if let index = announcements.firstIndex(where: { $0.id == updated.id }) {
+//            announcements[index] = updated
+//            saveToPlist()
+//        }
+//    }
     
     func removeAnnouncement(by id: String) {
         announcements.removeAll { $0.id == id }
@@ -50,19 +50,19 @@ class AnnouncementDataModel {
             .sorted { $0.createdAt > $1.createdAt }
     }
     
-    func getAnnouncements(of type: AnnouncementType) -> [Announcement] {
-        return announcements
-            .filter { $0.type == type }
-            .sorted { $0.createdAt > $1.createdAt }
-    }
-    
-    func searchAnnouncements(containing query: String) -> [Announcement] {
-        guard !query.isEmpty else { return getAllAnnouncements() }
-        return announcements.filter {
-            $0.title.lowercased().contains(query.lowercased()) ||
-            $0.message.lowercased().contains(query.lowercased())
-        }
-    }
+//    func getAnnouncements(of type: AnnouncementType) -> [Announcement] {
+//        return announcements
+//            .filter { $0.type == type }
+//            .sorted { $0.createdAt > $1.createdAt }
+//    }
+//    
+//    func searchAnnouncements(containing query: String) -> [Announcement] {
+//        guard !query.isEmpty else { return getAllAnnouncements() }
+//        return announcements.filter {
+//            $0.title.lowercased().contains(query.lowercased()) ||
+//            $0.message.lowercased().contains(query.lowercased())
+//        }
+//    }
     
     // MARK: - Plist Persistence
     
