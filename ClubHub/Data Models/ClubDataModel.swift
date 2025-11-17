@@ -24,8 +24,13 @@ class ClubDataModel {
         return clubs
     }
     
-    func getClub(by id: String) -> Club? {
-        return clubs.first { $0.id == id }
+//    func getClub(by id: String) -> Club? {
+//        return clubs.first { $0.id == id }
+//    }
+    
+    func searchClubs(containing query: String) -> [Club] {
+        guard !query.isEmpty else { return clubs }
+        return clubs.filter { $0.name.lowercased().contains(query.lowercased()) }
     }
     
     func updateClub(_ updatedClub: Club) {

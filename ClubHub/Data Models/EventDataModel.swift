@@ -98,10 +98,10 @@ class EventDataModel {
         }
     }
 
-    func isRegistered(studentID: String, for eventID: String) -> Bool {
-        guard let event = getEvent(by: eventID) else { return false }
-        return event.registeredStudentIDs.contains(studentID)
-    }
+//    func isRegistered(studentID: String, for eventID: String) -> Bool {
+//        guard let event = getEvent(by: eventID) else { return false }
+//        return event.registeredStudentIDs.contains(studentID)
+//    }
 
     // MARK: - Persistence
     private var plistURL: URL {

@@ -133,10 +133,10 @@ struct Event: Codable {
     var clubID: String              // 🔗 Reference to Club by ID
     var poster: String
     var description: String
-    var registeredStudentIDs: [String]  // 🔗 Only store Student IDs
+    var registeredStudentIDs: [String] = []  // 🔗 Only store Student IDs (non-optional)
+    var checkedInStudentIDs: [String] = []   // 🔗 Only store CheckedIn Student IDs (non-optional)
     var category: EventCategory
     var maxRegistrations: Int
-    var attendeeIDs: [String]?          // 🔗 Only store IDs
     var registrationFee: Float?
     var qrFeeImage: String
     var departmentsAllowed: [Department]?
@@ -192,5 +192,3 @@ struct DutyLeave: Codable {
     var status: DutyLeaveStatus
     var createdAt: Date
 }
-
-
